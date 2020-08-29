@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta property="og:title" content="내 사이트의 제목"/>
-        <meta property="og:description" content="보고 있는 페이지의 내용 요약"/>
-        <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <meta charset="UTF-8">
         <title>랜덤 영화 추천</title>
-        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
               integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
@@ -16,10 +13,10 @@
             .wrap {
                 width: 500px;
                 margin: auto;
+                font-family: 'Noto Sans KR', sans-serif;
             }
 
             h1 {
-                font-family: 'Nanum Gothic Coding', monospace;
                 color: white;
             }
 
@@ -28,7 +25,6 @@
             }
 
             .movie_info {
-                font-family: 'Noto Sans KR', sans-serif;
                 color: black;
             }
 
@@ -44,18 +40,49 @@
                 margin: 3px 3px 10px 0px;
             }
         </style>
+
         <script>
             function showanother() {
                 location.reload();
+
+                $(document).ready(function () {
+                    $('#movie-box').empty()
+                    newmovies();
+                });
             }
 
-            $(document).ready(function () {
-                $('#movie-box').empty()
-                newmovie();
-            });
-
-            function newmovie() {
+            function newmovies() {
+                $.ajax({
+                        type: "GET",
+                        url: "/movies",
+                        data: {},
+                        success: function (response) {
+                            // 2. 요청 성공 여부 확인하기
+                            if (response["result"] == "success") {
+                                let movies_list = response['movies_list']
+                                // 3. 요청 성공했을 때 리뷰를 올바르게 화면에 나타내기
+                                let poster_path = movies_list[0]['poster_path']
+                                let title = movies_list[0]['title']
+                                let release_date = movies_list[0]['release_date']
+                                let overview = movies_list[0]['overview']
+                                let tempHtml = `
+                                   <div class="movie_box">
+                                    <div class="poster_path">
+                                        <img src="${poster_path}">
+                                    </div>
+                                    <div class="movie_info">
+                                        <h2 class="title"><b>${title}</b></h2>
+                                        <span class="release_date">${release_date}</span>
+                                        <p class="overview">${overview}</p>
+                                    </div>
+                                   </div>`;
+                                $("#movies-box").attr(tempHtml);
+                            }
+                        }
+                    }
+                )
             }
+
 
         </script>
     </head>
@@ -66,15 +93,14 @@
                 <h1>이 영화 어때요?</h1>
             </div>
             <div class="movie_box">
-                <div class="movie_poster">
+                <div class="poster_path">
                     <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/ylQRi3edixhzUiubw7LQP1YhI6W.jpg">
                 </div>
                 <div class="movie_info">
-                    <h2 class="title">테넷</h2>
-                    <span class="release_date">2020</span>
+                    <h2 class="title"><b>테넷</b></h2>
+                    <span class="release_date">2020-08-26</span>
                     <p class="overview">시간의 흐름을 뒤집는 인버전을 통해 현재와 미래를 오가며 세상을 파괴하려는 사토르를 막기 위해 투입된 작전의 주도자. 인버전에 대한 정보를 가진
-                        닐과
-                        미술품 감정사이자 사토르에 대한 복수심이 가득한 그의 아내 캣과 협력해 미래의 공격에 맞서 제3차 세계대전을 막아야 한다!</p>
+                        닐과 미술품 감정사이자 사토르에 대한 복수심이 가득한 그의 아내 캣과 협력해 미래의 공격에 맞서 제3차 세계대전을 막아야 한다!</p>
                 </div>
             </div>
             <div class="button">
