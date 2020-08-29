@@ -25,7 +25,3 @@ for page_num in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]:
             'release_date' : release_date
         }
         db.movies.insert_one(movie)
-
-
-# api of movie of certain genrre id: https://api.themoviedb.org/3/movie/upcoming?api_key=5f7bf7c14846dfb7be7dcb66ee46a81a&language=ko-KR&with_genres=28
-# api of list of genres https://api.themoviedb.org/3/genre/movie/list?api_key=5f7bf7c14846dfb7be7dcb66ee46a81a&language=ko-KR

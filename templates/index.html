@@ -1,10 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <meta property="og:title" content="내 사이트의 제목"/>
+        <meta property="og:description" content="보고 있는 페이지의 내용 요약"/>
+        <meta property="og:image" content="{{ url_for('static', filename='ogimage.png') }}"/>
         <meta charset="UTF-8">
-        <title>나의 영화 취향 찾기!</title>
+        <title>랜덤 영화 추천</title>
+        <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic+Coding&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@500&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+              integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+              crossorigin="anonymous">
+
+        <style>
+            .wrap {
+                width: 500px;
+                margin: auto;
+            }
+
+            h1 {
+                font-family: 'Nanum Gothic Coding', monospace;
+                color: white;
+            }
+
+            img {
+                height: 500px;
+            }
+
+            .movie_info {
+                font-family: 'Noto Sans KR', sans-serif;
+                color: black;
+            }
+
+            h2 {
+                margin: 3px 3px 0px 0px;
+            }
+
+            span {
+                margin: 3px 3px 0px 0px;
+            }
+
+            p {
+                margin: 3px 3px 10px 0px;
+            }
+        </style>
+        <script>
+            function showanother() {
+                location.reload();
+            }
+
+            $(document).ready(function () {
+                $('#movie-box').empty()
+                newmovie();
+            });
+
+            function newmovie() {
+            }
+
+        </script>
     </head>
-    <body>
-        
+
+    <body style="background-color:lightsteelblue;">
+        <div class="wrap">
+            <div class="page_title">
+                <h1>이 영화 어때요?</h1>
+            </div>
+            <div class="movie_box">
+                <div class="movie_poster">
+                    <img src="https://image.tmdb.org/t/p/w600_and_h900_bestv2/ylQRi3edixhzUiubw7LQP1YhI6W.jpg">
+                </div>
+                <div class="movie_info">
+                    <h2 class="title">테넷</h2>
+                    <span class="release_date">2020</span>
+                    <p class="overview">시간의 흐름을 뒤집는 인버전을 통해 현재와 미래를 오가며 세상을 파괴하려는 사토르를 막기 위해 투입된 작전의 주도자. 인버전에 대한 정보를 가진
+                        닐과
+                        미술품 감정사이자 사토르에 대한 복수심이 가득한 그의 아내 캣과 협력해 미래의 공격에 맞서 제3차 세계대전을 막아야 한다!</p>
+                </div>
+            </div>
+            <div class="button">
+                <button onclick="showanother()" type="button" class="btn btn-dark btn-block">다른 영화 추천해줘!</button>
+            </div>
+        </div>
     </body>
 </html>
